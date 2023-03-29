@@ -7,9 +7,9 @@ app = Flask(__name__)
 url = 'https://rumobile.rutgers.edu/2/rutgers-dining.txt'
 @app.route('/meals', methods=['POST'])
 def meals():
-    # Add logic here
     user_request = request.values.get('Body', '')
     user_request = user_request.split("\n")
+    
     location_name = str(user_request[0].strip())
     meal_name = str(user_request[1].strip())
     resp = MessagingResponse()
@@ -19,7 +19,6 @@ def meals():
     formatted_response = ""
     if api_result.status_code == 200:
         for item in data:
-            print(item)
             if item['location_name'] == location_name:
                 for meal in item['meals']:
                     if meal['meal_name'] == meal_name:
@@ -36,13 +35,13 @@ def meals():
 
     return str(resp)
 
-@app.route('/meals', methods=['GET'])
-def get_message():
-    user_request = request.values.get('Body', '')
-    resp = MessagingResponse()
-    msg = resp.message()
-    msg.body('Hello! this is the Rutgers Dining Bot. Please send a message in the following format: "location_name meal_name". \n These are the dining halls available: Brower Commons, Livingston Dining Commons, Busch Dining Hall, Neilson DIning Hall. \n These are the meal names available: Breakfast, Lunch, Dinner, Late Night. \n Example: Brower Commons Breakfast, Lunch, Dinner, Knight Room, Late Knight.')
-    return str(resp)
+# @app.route('/meals', methods=['GET'])
+# def get_message():
+#     user_request = request.values.get('Body', '')
+#     resp = MessagingResponse()
+#     msg = resp.message()
+#     msg.body('Hello! this is the Rutgers Dining Bot. Please send a message in the following format: "location_name meal_name". \n These are the dining halls available: Brower Commons, Livingston Dining Commons, Busch Dining Hall, Neilson DIning Hall. \n These are the meal names available: Breakfast, Lunch, Dinner, Late Night. \n Example: Brower Commons Breakfast, Lunch, Dinner, Knight Room, Late Knight.')
+#     return str(resp)
     
 
 if __name__ == '__main__':

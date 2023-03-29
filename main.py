@@ -23,3 +23,4 @@ if api_result.status_code == 200:
                             for item_name in items:
                                 formatted_response += "- "+ item_name + "\n"
 print(formatted_response)
+
