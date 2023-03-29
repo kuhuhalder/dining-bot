@@ -11,6 +11,7 @@ def meals():
     
     location_name = str(user_request[0].strip())
     meal_name = str(user_request[1].strip())
+    
     resp = MessagingResponse()
     msg = resp.message()
     api_result = requests.get(url)
